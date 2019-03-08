@@ -23,6 +23,8 @@ $(document).ready(function () {
             var userSearch = $("#animalss").val().trim();
             animals.push(userSearch);
             console.log(animals);
+            $(".buttonsHere").empty(); 
+            createAllBtns();
         });
         //Create buttons with the value of the input
         //all animal buttons need a class, so the .click can pick them all  up
@@ -36,14 +38,16 @@ $(document).ready(function () {
 
         function createAllBtns() {
             for (var i = 0; i < animals.length; i++) {
+
                 var newBtn = $("<button class='btn btn-info'>");
-                newBtn.attr("data-animal=" + animals[i].value)
+                newBtn.attr("data-animal", animals[i]);
+                newBtn.text(animals[i]);
                 $(".buttonsHere").append(newBtn);
 
             }
-        }
-
-        function printImg() {
+        } 
+        
+        $(".animalBtns").click(function () {
             for (var i = 0; i < results.length; i++) {
                 var animalDiv = $("<div>");
                 var p = $("<p>").text("Rating: " + results[i].rating)
@@ -53,6 +57,8 @@ $(document).ready(function () {
                 animalDiv.append(animalImage)
                 $("#imagesHere").prepend(animalDiv);
             }
-        }
-    });
-});
+        });
+        
+        createAllBtns();
+    })
+})
