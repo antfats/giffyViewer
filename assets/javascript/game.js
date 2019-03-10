@@ -23,7 +23,7 @@ $(document).ready(function () {
             var userSearch = $("#animalss").val().trim();
             animals.push(userSearch);
             console.log(animals);
-            $(".buttonsHere").empty(); 
+            $(".buttonsHere").empty();
             createAllBtns();
         });
         //Create buttons with the value of the input
@@ -32,7 +32,17 @@ $(document).ready(function () {
         //when the buttons are clicked run the api and grab the pictures and put them in a container with the rating of the movie above it
         //prepend the images to the imagesHere div
 
+        $(".gif").on("click", function () {
+            var state = $(this).attr("data-state");
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
 
+            }
+        });
 
 
 
@@ -45,20 +55,21 @@ $(document).ready(function () {
                 $(".buttonsHere").append(newBtn);
 
             }
-        } 
-        
+        }
+
         $(".animalBtns").click(function () {
             for (var i = 0; i < results.length; i++) {
                 var animalDiv = $("<div>");
                 var p = $("<p>").text("Rating: " + results[i].rating)
                 var animalImage = $("<img>")
-                animalImage.attr("src", results[i].images.fixed_height.url)
+                var imgStill = results[i].images.fixed_height.url
+                animalImage.attr("src", imgStill)
                 animalDiv.append(p);
                 animalDiv.append(animalImage)
                 $("#imagesHere").prepend(animalDiv);
             }
         });
-        
+
         createAllBtns();
     })
 })
